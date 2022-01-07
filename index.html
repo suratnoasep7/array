@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Backend 2</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$.ajax({
+		  url: 'https://randomuser.me/api/?page=1&results=20',
+		  dataType: 'json',
+		  success: function(data) {
+		    console.log(data.results);
+		    var jsonData = data.results;
+		    var datas = [];
+		    for (var i = 0; i < jsonData.length; i++) {
+		    	var json = {
+					 "fullname": jsonData[i].name.title + " " + jsonData[i].name.first + " " + jsonData[i].name.last,
+					 "age": jsonData[i].dob.age,
+					 "city": jsonData[i].location.city,
+					 "email": jsonData[i].email,
+					 "phone": jsonData[i].phone,
+					 "picture": jsonData[i].picture.large
+				}
+				datas.push(json);
+		    }
+		    var term = 'Mrs';
+			var arrayTitles = datas.filter(item => item.fullname.toLowerCase().indexOf(term) > -1);
+			console.log(arrayTitles);
+			var arrayRange = datas.filter(item => item.age > 20 && item.age < 30);
+			console.log(arrayRange);
+			console.log(datas.sort(function(a, b){return a.age-b.age}))
+		  }
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>
